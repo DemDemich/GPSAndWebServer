@@ -6,19 +6,16 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="TEST" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="489911d1-8053-48a3-b1f9-de79eff3fad3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/LocationTrack.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
@@ -48,35 +45,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="113" column="52" lean-forward="true" selection-start-line="113" selection-start-column="52" selection-end-line="113" selection-end-column="52" />
+            <state relative-caret-position="1318">
+              <caret line="143" column="74" selection-start-line="143" selection-start-column="74" selection-end-line="143" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2416#3439#0" expanded="true" />
-                <element signature="e#3438#3439#0" expanded="true" />
+                <element signature="e#3501#4591#0" expanded="true" />
+                <element signature="e#4537#4800#0" expanded="true" />
+                <element signature="e#4799#4800#0" expanded="true" />
+                <element signature="e#4590#4591#0" expanded="true" />
                 <element signature="e#3820#4375#0" expanded="true" />
                 <element signature="e#4374#4375#0" expanded="true" />
-                <element signature="e#5935#6506#0" expanded="true" />
-                <element signature="e#6505#6506#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/LocationTrack.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="100" column="13" lean-forward="true" selection-start-line="100" selection-start-column="13" selection-end-line="100" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2923#3365#0" expanded="true" />
-                <element signature="e#5633#5634#0" expanded="true" />
-                <element signature="e#5551#5817#0" expanded="true" />
-                <element signature="e#5816#5817#0" expanded="true" />
-                <element signature="e#5866#6031#0" expanded="true" />
-                <element signature="e#6030#6031#0" expanded="true" />
-                <element signature="e#6983#6984#0" expanded="true" />
+                <element signature="e#7320#7891#0" expanded="true" />
+                <element signature="e#7890#7891#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,6 +85,7 @@
     <findStrings>
       <find>loc</find>
       <find>Toast</find>
+      <find>toast</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -113,11 +94,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/LocationTrack.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/LocationTrack.java" />
       </list>
     </option>
   </component>
@@ -181,8 +162,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_5X_API_29_x86" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-03-21T09:07:10.580Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="vkmnmzvon7pzovz9" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-03-21T14:41:45.043Z" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="D:/AndroidSDK" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -277,7 +258,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <layout>
       <window_info id="Capture Tool" />
       <window_info content_ui="combo" id="Project" visible="true" weight="0.32995737" />
@@ -289,11 +270,11 @@
       <window_info id="Resources Explorer" />
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Run" weight="0.3290461" />
-      <window_info active="true" anchor="bottom" id="Logcat" visible="true" weight="0.3290461" />
+      <window_info active="true" anchor="bottom" id="Logcat" sideWeight="0.49946696" visible="true" weight="0.34405145" />
       <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Debug" weight="0.3290461" />
+      <window_info anchor="bottom" id="Debug" sideWeight="0.49946696" weight="0.3290461" />
       <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" sideWeight="0.50053304" side_tool="true" weight="0.3290461" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Build" weight="0.3290461" />
       <window_info anchor="bottom" id="Android Profiler" />
@@ -307,6 +288,18 @@
       <window_info anchor="right" id="Flutter Performance" />
       <window_info anchor="right" id="Preview" weight="0.32995737" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/MainActivity.java</url>
+          <line>152</line>
+          <properties />
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
@@ -365,20 +358,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/AndroidSDK/sources/android-29/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="6614" selection-start-line="6614" selection-end-line="6614" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cd2555db0203a9129fdeb1355c14dcc8/play-services-location-17.0.0/jars/classes.jar!/com/google/android/gms/location/FusedLocationProviderClient.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -394,6 +373,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/77c2fc448e2bd0738fd67dce062b1efd/play-services-base-17.0.0/jars/classes.jar!/com/google/android/gms/common/api/internal/ListenerHolder.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="54" selection-start-line="26" selection-start-column="54" selection-end-line="26" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/LocationTrack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-184">
+          <caret line="194" column="5" lean-forward="true" selection-start-line="194" selection-start-column="5" selection-end-line="194" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5588#5589#0" expanded="true" />
+            <element signature="e#5875#6141#0" expanded="true" />
+            <element signature="e#6140#6141#0" expanded="true" />
+            <element signature="e#6190#6355#0" expanded="true" />
+            <element signature="e#6354#6355#0" expanded="true" />
+            <element signature="e#6938#6939#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/AndroidSDK/sources/android-29/android/location/LocationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="112" column="31" selection-start-line="112" selection-start-column="31" selection-end-line="112" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/AndroidSDK/sources/android-29/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="6586" selection-start-line="6586" selection-end-line="6586" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor">
@@ -402,38 +421,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/77c2fc448e2bd0738fd67dce062b1efd/play-services-base-17.0.0/jars/classes.jar!/com/google/android/gms/common/api/internal/ListenerHolder.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/LocationTrack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="100" column="13" lean-forward="true" selection-start-line="100" selection-start-column="13" selection-end-line="100" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2923#3365#0" expanded="true" />
-            <element signature="e#5633#5634#0" expanded="true" />
-            <element signature="e#5551#5817#0" expanded="true" />
-            <element signature="e#5816#5817#0" expanded="true" />
-            <element signature="e#5866#6031#0" expanded="true" />
-            <element signature="e#6030#6031#0" expanded="true" />
-            <element signature="e#6983#6984#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/gpsapplication/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="113" column="52" lean-forward="true" selection-start-line="113" selection-start-column="52" selection-end-line="113" selection-end-column="52" />
+        <state relative-caret-position="1318">
+          <caret line="143" column="74" selection-start-line="143" selection-start-column="74" selection-end-line="143" selection-end-column="74" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2416#3439#0" expanded="true" />
-            <element signature="e#3438#3439#0" expanded="true" />
+            <element signature="e#3501#4591#0" expanded="true" />
+            <element signature="e#4537#4800#0" expanded="true" />
+            <element signature="e#4799#4800#0" expanded="true" />
+            <element signature="e#4590#4591#0" expanded="true" />
             <element signature="e#3820#4375#0" expanded="true" />
             <element signature="e#4374#4375#0" expanded="true" />
-            <element signature="e#5935#6506#0" expanded="true" />
-            <element signature="e#6505#6506#0" expanded="true" />
+            <element signature="e#7320#7891#0" expanded="true" />
+            <element signature="e#7890#7891#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -3,27 +3,36 @@ package com.example.gpsapplication;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.location.Location;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
@@ -35,20 +44,31 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList permissions = new ArrayList();
 
     private final static int ALL_PERMISSIONS_RESULT = 101;
-    LocationTrack locationTrack;
 
     private FusedLocationProviderClient fusedLocationClient;
     private LocationRequest locationRequest;
     private Location loc;
     TextView lat;
     TextView lon;
+    TextView responseText_tv;
+    double longitude;
+    double latitude;
+
+    String responseText;
+    private Handler mHandler;
+
+    private static final String URL = "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=:lat&longitude=:lon&localityLanguage=ru";
+    OkHttpClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        client = new OkHttpClient();
         permissions.add(ACCESS_FINE_LOCATION);
         permissions.add(ACCESS_COARSE_LOCATION);
+
+        mHandler = new Handler(Looper.getMainLooper());
 
         permissionsToRequest = findUnAskedPermissions(permissions);
         //get the permissions we have asked for before but are not granted..
@@ -56,9 +76,18 @@ public class MainActivity extends AppCompatActivity {
         lat = findViewById(R.id.Lat_tv);
         lon = findViewById(R.id.Lon_tv);
 
+        responseText_tv = findViewById(R.id.responseText_tv);
+
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
+                return;
+            }
             if (permissionsToRequest.size() > 0)
                 requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
         }
@@ -71,28 +100,41 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_LONG).show();
+                if(latitude != 0 && longitude != 0) {
+                    String requestStr = URL.replace(":lat", Double.toString(latitude)).replace(":lon", Double.toString(longitude));
+                    run(requestStr, new Callback() {
+                        @Override
+                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                            Log.d("TEST", e.getMessage());
+                        }
 
-                locationTrack = new LocationTrack(MainActivity.this);
-                requestLocationUpdate();
+                        @Override
+                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                            responseText = response.body().string();
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    responseText_tv.setText(responseText);
+                                }
+                            });
+                            Log.d("TEST", responseText);
+                        }
+                    });
 
-                if (locationTrack.canGetLocation()) {
-
-                    double longitude = locationTrack.getLongitude();
-                    double latitude  = locationTrack.getLatitude();
-                    if(longitude != 0 && longitude != 0) {
-                        lat.setText("Lat: " + latitude);
-                        lon.setText("Lat: " + longitude);
-                    } else {
-                        Toast.makeText(getApplicationContext(),"Пожалуйста подождите определяется локация" , Toast.LENGTH_SHORT).show();
-                    }
-                    //Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
-                } else {
-
-                    locationTrack.showSettingsAlert();
                 }
-
             }
         });
+
+    }
+
+    Call run(String url, Callback callback) {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
 
     }
 
@@ -100,15 +142,15 @@ public class MainActivity extends AppCompatActivity {
         fusedLocationClient = new FusedLocationProviderClient(this);
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setFastestInterval(2000).setInterval(4000);
+                .setFastestInterval(1000).setInterval(2000);
         fusedLocationClient.requestLocationUpdates(locationRequest, new LocationCallback() {
 
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 loc = locationResult.getLastLocation();
-                double latitude = loc.getLatitude();
-                double longitude = loc.getLongitude();
+                latitude = loc.getLatitude();
+                longitude = loc.getLongitude();
                 lat.setText("Lat: " + latitude);
                 lon.setText("Lat: " + longitude);
                 Log.d("TEST", String.valueOf(latitude) + " " + String.valueOf(longitude));
@@ -185,11 +227,7 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Cancel", null)
                 .create()
                 .show();
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        locationTrack.stopListener();
+
     }
 }
