@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.annotation.TargetApi;
@@ -21,11 +22,14 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
+import com.nabinbhandari.android.permissions.PermissionHandler;
+import com.nabinbhandari.android.permissions.Permissions;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.Call;
@@ -36,12 +40,14 @@ import okhttp3.Response;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.Manifest.permission.INTERNET;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected = new ArrayList();
-    private ArrayList permissions = new ArrayList();
+    private final String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.INTERNET};
 
     private final static int ALL_PERMISSIONS_RESULT = 101;
 
@@ -65,12 +71,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         client = new OkHttpClient();
-        permissions.add(ACCESS_FINE_LOCATION);
-        permissions.add(ACCESS_COARSE_LOCATION);
 
         mHandler = new Handler(Looper.getMainLooper());
 
-        permissionsToRequest = findUnAskedPermissions(permissions);
+
         //get the permissions we have asked for before but are not granted..
         //we will store this in a global list to access later.
         lat = findViewById(R.id.Lat_tv);
@@ -78,54 +82,61 @@ public class MainActivity extends AppCompatActivity {
 
         responseText_tv = findViewById(R.id.responseText_tv);
 
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
+        callPermissions();
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
-                return;
-            }
-            if (permissionsToRequest.size() > 0)
-                requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
-        }
-        requestLocationUpdate();
 
+    }
 
-        Button btn = findViewById(R.id.btn);
+    public void callPermissions() {
+        String rationale = "Please provide location permission so that you can ...";
+        Permissions.Options options = new Permissions.Options()
+                .setRationaleDialogTitle("Info")
+                .setSettingsDialogTitle("Warning");
 
-        //лисенер на кнопку
-        btn.setOnClickListener(new View.OnClickListener() {
+        Permissions.check(this/*context*/, permissions, rationale, options, new PermissionHandler() {
             @Override
-            public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_LONG).show();
-                if(latitude != 0 && longitude != 0) {
-                    String requestStr = URL.replace(":lat", Double.toString(latitude)).replace(":lon", Double.toString(longitude));
-                    run(requestStr, new Callback() {
-                        @Override
-                        public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                            Log.d("TEST", e.getMessage());
-                        }
+            public void onGranted() {
+                requestLocationUpdate();
+                Button btn = findViewById(R.id.btn);
 
-                        @Override
-                        public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                            responseText = response.body().string();
-                            mHandler.post(new Runnable() {
+                //лисенер на кнопку
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Toast.makeText(getApplicationContext(), "TEST", Toast.LENGTH_LONG).show();
+                        if(latitude != 0 && longitude != 0) {
+                            String requestStr = URL.replace(":lat", Double.toString(latitude)).replace(":lon", Double.toString(longitude));
+                            run(requestStr, new Callback() {
                                 @Override
-                                public void run() {
-                                    responseText_tv.setText(responseText);
+                                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                                    Log.d("TEST", e.getMessage());
+                                }
+
+                                @Override
+                                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                                    responseText = response.body().string();
+                                    mHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            responseText_tv.setText(responseText);
+                                        }
+                                    });
+                                    Log.d("TEST", responseText);
                                 }
                             });
-                            Log.d("TEST", responseText);
-                        }
-                    });
 
-                }
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onDenied(Context context, ArrayList<String> deniedPermissions) {
+                callPermissions();
             }
         });
-
     }
 
     Call run(String url, Callback callback) {
@@ -135,14 +146,13 @@ public class MainActivity extends AppCompatActivity {
         Call call = client.newCall(request);
         call.enqueue(callback);
         return call;
-
     }
 
     public void requestLocationUpdate() {
         fusedLocationClient = new FusedLocationProviderClient(this);
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setFastestInterval(1000).setInterval(2000);
+                .setFastestInterval(2000).setInterval(4000);
         fusedLocationClient.requestLocationUpdates(locationRequest, new LocationCallback() {
 
             @Override
@@ -198,8 +208,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (permissionsRejected.size() > 0) {
-
-
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
                             showMessageOKCancel("These permissions are mandatory for the application. Please allow access.",

@@ -51,7 +51,7 @@
         android:layout_marginTop="48dp"
         android:maxLines="9999"
         android:text="Response"
-        android:textSize="25sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
