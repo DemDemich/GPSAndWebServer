@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -126,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             });
 
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Подождите пока получим данные о вашем местоположении", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
